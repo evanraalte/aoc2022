@@ -1,6 +1,6 @@
 def set_from_range_str(range_str):
-    mini, maxi = range_str.split("-")
-    return set(range(int(mini), int(maxi)+1))
+    mini, maxi = tuple(map(int, range_str.split("-")))
+    return set(range(mini, maxi+1))
 
 pairs = open("day04.txt").read().split('\n')
 duplicates_parta = 0
