@@ -1,4 +1,4 @@
-lines = [x.split() for x in open("day07.txt").read().split('\n')]
+lines = map(str.split, open("day07.txt").read().split('\n'))
 path = []
 sizes = {}
 for line in lines:
