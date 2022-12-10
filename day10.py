@@ -1,10 +1,13 @@
 from collections import deque
 
 class CPU:
-    x = 1
-    pipeline = deque()
-    crt = []
-    crt_cnt = 0
+
+    def __init__(self):
+        self.x = 1
+        self.pipeline = deque()
+        self.crt = []
+        self.crt_cnt = 0
+
     def decode(self, cmd):
         match cmd.split():
             case ["addx", num]:
