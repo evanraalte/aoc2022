@@ -9,26 +9,24 @@ CONTINUE = 0
 
 
 def compare(left, right) -> int:
-    if type(left) == list and type(right) == list:
-        fallback_order = compare(len(left), len(right))
-        for i in range(min(len(left), len(right))):
-            order = compare(left[i], right[i])
-            if order != CONTINUE:
-                return order
-        return fallback_order
-    elif type(left) == int and type(right) == int:
-        if left < right:
-            return RIGHT_ORDER
-        elif left == right:
-            return CONTINUE
-        else:
-            return WRONG_ORDER
-    else: # One must be an integer
-        if type(left) == int:
-            left = [left]
-        else:
-            right = [right]
-        return compare(left, right)
+    match left, right:
+        case list(), list():
+            for i in range(min(len(left), len(right))):
+                order = compare(left[i], right[i])
+                if order != CONTINUE:
+                    return order
+            return compare(len(left), len(right))
+        case int(), int():
+            if left < right:
+                return RIGHT_ORDER
+            elif left == right:
+                return CONTINUE
+            else:
+                return WRONG_ORDER
+        case int(), _:
+            return compare([left], right)
+        case _, int():
+            return compare(left, [right])
 
 total = 0
 for idx, set in enumerate(sets):
@@ -37,8 +35,6 @@ for idx, set in enumerate(sets):
         total += idx + 1
 print(total)
 
-
-total = 0
 packets = []
 packets.append([[2]])
 packets.append([[6]])
