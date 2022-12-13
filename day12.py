@@ -37,10 +37,10 @@ for y,line in enumerate(lines):
     for x,char in enumerate(line):
         if char == 'S':
             start = (x,y)
-            height = 0
+            height = 1
         elif char == 'E':
             end = (x,y)
-            height = 27
+            height = 26
         else:
             height = ord(char) - ord('a') + 1
         grid[(x,y)] = height
@@ -56,7 +56,7 @@ for location in grid:
         neighbour = x+dx, y+dy
         if neighbour not in grid:
             pass # outside of grid, can skip
-        elif grid[neighbour] - 1 == grid[location] or grid[location] == grid[neighbour] or grid[neighbour] + 1 == grid[location]:
+        elif grid[neighbour] - 1 <= grid[location]:
             # graph[location].add(neighbour)
             edges.append((location, neighbour, 1))
 
@@ -65,3 +65,6 @@ for location in grid:
 
 
 print(dijkstra(edges, start, end)[0])
+locs = [dijkstra(edges,start_loc,end)[0] for start_loc, height in grid.items() if height == 1]
+print(min(locs))
+pass
